@@ -31,6 +31,8 @@ task bwcTest {
   group = 'verification'
 }
 
+integTest.enabled = false
+
 for (Version version : bwcVersions.indexCompatible) {
   String baseName = "v${version}"
 
