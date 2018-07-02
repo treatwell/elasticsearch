@@ -21,6 +21,7 @@ package org.elasticsearch.ingest.attachment;
 
 import org.apache.commons.io.IOUtils;
 import org.elasticsearch.ElasticsearchParseException;
+import org.elasticsearch.bootstrap.JavaVersion;
 import org.elasticsearch.ingest.IngestDocument;
 import org.elasticsearch.ingest.Processor;
 import org.elasticsearch.ingest.RandomDocumentPicks;
@@ -289,8 +290,8 @@ public class AttachmentProcessorTests extends ESTestCase {
         return attachmentData;
     }
 
-    @AwaitsFix(bugUrl = "https://github.com/elastic/elasticsearch/issues/31305")
     public void testIndexedChars() throws Exception {
+        assumeFalse("https://github.com/elastic/elasticsearch/issues/31305", JavaVersion.current().equals(JavaVersion.parse("11")));
         processor = new AttachmentProcessor(randomAlphaOfLength(10), "source_field",
             "target_field", EnumSet.allOf(AttachmentProcessor.Property.class), 19, false, null);
 
